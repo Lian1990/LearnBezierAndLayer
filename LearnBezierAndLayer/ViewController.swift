@@ -17,7 +17,8 @@ class ViewController: UIViewController {
 //        self.learnBasisFeature()
 //        self.bezierDrawRoundCorner()
 //        self.bezierDrawCircle()
-        self.bezierDrawCurves()
+//        self.bezierDrawCurves()
+        self.bezierDrawHeart()
     }
     
     /**
@@ -103,6 +104,29 @@ class ViewController: UIViewController {
         view.layer.addSublayer(layer1)
         view.layer.addSublayer(layer2)
         view.layer.addSublayer(layer3)
+    }
+    
+    /**
+     * 桃心
+     */
+    
+    func bezierDrawHeart(){
+        let radius :CGFloat = 40
+        let center1 :CGPoint = CGPointMake(240, 300)
+        let center2 :CGPoint = CGPointMake(160, 300)
+        let angle1 :CGFloat = CGFloat(M_PI)
+        let angle2 :CGFloat = CGFloat(M_PI_4)
+        let path = UIBezierPath(arcCenter: center1, radius: radius, startAngle: -angle1, endAngle: angle2, clockwise: true) //右半边
+        path.addLineToPoint(CGPointMake(center1.x - radius, center1.y + radius * tan((angle1-angle2)*0.5)))
+        path.addArcWithCenter(center2, radius: radius, startAngle: 3*angle2, endAngle: 0, clockwise: true)  //左半边
+        
+        let layer = CAShapeLayer()
+        layer.path = path.CGPath
+        layer.fillColor = UIColor.redColor().CGColor
+        layer.strokeColor = UIColor.blueColor().CGColor
+        layer.lineWidth = 3
+        layer.lineCap = kCALineCapRound
+        view.layer.addSublayer(layer)
     }
 
     override func didReceiveMemoryWarning() {
